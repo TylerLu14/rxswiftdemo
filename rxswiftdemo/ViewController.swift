@@ -8,8 +8,7 @@
 
 import UIKit
 import SnapKit
-
-
+import RxSwift
 
 class ViewController: UIViewController {
     lazy var tableView: UITableView = {
@@ -20,6 +19,9 @@ class ViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
+        title = "RxSwift 101"
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints{ make in
@@ -34,6 +36,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    let disposeBag = DisposeBag()
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -43,7 +47,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ExampleCell.identifier, for: indexPath) as! ExampleCell
-        cell.visualize(row: ExampleType.allCases[indexPath.row].row)
+        cell.visualize(row: ExampleType.allCases[indexPath.row].row)    
         return cell
     }
     
@@ -52,10 +56,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        present(ExampleType.allCases[indexPath.row].row.vc, animated: true) {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
-        
+        let vc = ExampleType.allCases[indexPath.row].row.vc
+        navigationController?.pushViewController(vc, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

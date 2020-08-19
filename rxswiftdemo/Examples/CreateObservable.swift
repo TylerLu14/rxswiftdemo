@@ -84,6 +84,8 @@ class CreateObservableViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
+        title = "Create Observables"
+        
         view.backgroundColor = .white
         
         let stack = UIStackView(arrangedSubviews: [btnCreate, btnDeferred, btnJust, btnFrom, btnEmpty, btnNever, btnTimer, btnInterval])
@@ -91,7 +93,8 @@ class CreateObservableViewController: UIViewController {
         stack.distribution = .fillEqually
         view.addSubview(stack)
         stack.snp.makeConstraints{ make in
-            make.top.left.right.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.right.equalToSuperview()
         }
         
         view.addSubview(txtView)

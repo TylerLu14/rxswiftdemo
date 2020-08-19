@@ -56,6 +56,7 @@ class TransformOperatorsViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
+        title = "Transform Operators"
         view.backgroundColor = .white
         
         let stack = UIStackView(arrangedSubviews: [btnMap, btnFlatMap, btnFlatMapLatest, btnConcatMap])
@@ -63,7 +64,8 @@ class TransformOperatorsViewController: UIViewController {
         stack.distribution = .fillEqually
         view.addSubview(stack)
         stack.snp.makeConstraints{ make in
-            make.top.left.right.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.right.equalToSuperview()
         }
         
         view.addSubview(txtView)
@@ -77,12 +79,26 @@ class TransformOperatorsViewController: UIViewController {
         super.viewDidLoad()
         
         btnMap.rx.tap
+            .do(onNext: { [unowned self] _ in self.append(text: "-----map-----") })
             .flatMap{ [unowned self] _ in self.map() }
             .subscribe(onNext: { [unowned self] text in self.append(text: text) })
             .disposed(by: disposeBag)
         
         btnFlatMap.rx.tap
+            .do(onNext: { [unowned self] _ in self.append(text: "-----flatMap-----") })
             .flatMap{ [unowned self] _ in self.flatMap() }
+            .subscribe(onNext: { [unowned self] text in self.append(text: text) })
+            .disposed(by: disposeBag)
+        
+        btnFlatMapLatest.rx.tap
+            .do(onNext: { [unowned self] _ in self.append(text: "-----flatMapLatest-----") })
+            .flatMap{ [unowned self] _ in self.flatMapLatest() }
+            .subscribe(onNext: { [unowned self] text in self.append(text: text) })
+            .disposed(by: disposeBag)
+        
+        btnConcatMap.rx.tap
+            .do(onNext: { [unowned self] _ in self.append(text: "-----concatMap-----") })
+            .flatMap{ [unowned self] _ in self.concatMap() }
             .subscribe(onNext: { [unowned self] text in self.append(text: text) })
             .disposed(by: disposeBag)
     }
@@ -90,12 +106,16 @@ class TransformOperatorsViewController: UIViewController {
     func append(text: String) {
         let start = txtView.text.isEmpty ? "" : "\n"
         txtView.text.append(contentsOf: start + text)
+        
+        if (txtView.contentOffset.y + txtView.frame.height) < txtView.contentSize.height {
+            txtView.setContentOffset(CGPoint(x: 0, y: txtView.contentSize.height - txtView.frame.height), animated: true)
+        }
     }
     
     func map() -> Observable<String> {
         let source = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
             .take(3)
-        return source.map { String("\($0) -> \($0 + 1)") }
+        return source.map { String("\($0) -> \($0*$0)") }
     }
     
     func flatMap() -> Observable<String> {
@@ -110,6 +130,36 @@ class TransformOperatorsViewController: UIViewController {
                 .map { innerValue in "Outer Value \(value) Inner Value \(innerValue)" }
         }
         
+        return combinedObservable
+    }
+    
+    func flatMapLatest() -> Observable<String> {
+        let outerObservable = Observable<NSInteger>
+            .interval(.milliseconds(500), scheduler: MainScheduler.instance)
+            .take(2)
+
+          let combinedObservable = outerObservable.flatMapLatest { value in
+              return Observable<NSInteger>
+                  .interval(.milliseconds(300), scheduler: MainScheduler.instance)
+                  .take(3)
+                  .map { innerValue in "Outer Value \(value) Inner Value \(innerValue)" }
+          }
+
+          return combinedObservable
+    }
+    
+    func concatMap() -> Observable<String> {
+        let outerObservable = Observable<NSInteger>
+            .interval(.milliseconds(500), scheduler: MainScheduler.instance)
+            .take(2)
+
+        let combinedObservable = outerObservable.concatMap { value in
+            return Observable<NSInteger>
+                .interval(.milliseconds(300), scheduler: MainScheduler.instance)
+                .take(3)
+                .map { innerValue in "Outer Value \(value) Inner Value \(innerValue)" }
+        }
+
         return combinedObservable
     }
 }

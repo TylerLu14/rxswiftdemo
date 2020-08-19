@@ -20,6 +20,11 @@
 		A06E8AD624ED0CD4000892D7 /* CreateObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E8AD524ED0CD4000892D7 /* CreateObservable.swift */; };
 		A06E8AD924ED0EBB000892D7 /*  NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E8AD824ED0EBB000892D7 /*  NetworkService.swift */; };
 		A06E8ADD24ED42F5000892D7 /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E8ADC24ED42F5000892D7 /* TransformOperators.swift */; };
+		A0FD054824ED7A2500E265A9 /* ThrottleAndDebounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FD054724ED7A2500E265A9 /* ThrottleAndDebounce.swift */; };
+		A0FD054A24ED7DE000E265A9 /* CombineLatestAndWithLatestFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FD054924ED7DE000E265A9 /* CombineLatestAndWithLatestFrom.swift */; };
+		A0FD054C24ED851E00E265A9 /* SubscribeOnAndObserveOn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FD054B24ED851E00E265A9 /* SubscribeOnAndObserveOn.swift */; };
+		A0FD054E24ED970A00E265A9 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FD054D24ED970A00E265A9 /* ErrorHandling.swift */; };
+		A0FD055024EDA18F00E265A9 /* MultipleSubscribers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FD054F24EDA18F00E265A9 /* MultipleSubscribers.swift */; };
 		B99A92283F2EFE2EFBA9F40C /* Pods_rxswiftdemo_rxswiftdemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2924BD0A739C857F7D234B0C /* Pods_rxswiftdemo_rxswiftdemoUITests.framework */; };
 		D40AB285614177AE3F054793 /* Pods_rxswiftdemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B695FCCB73F38FB73C150900 /* Pods_rxswiftdemoTests.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +70,11 @@
 		A06E8AD524ED0CD4000892D7 /* CreateObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObservable.swift; sourceTree = "<group>"; };
 		A06E8AD824ED0EBB000892D7 /*  NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " NetworkService.swift"; sourceTree = "<group>"; };
 		A06E8ADC24ED42F5000892D7 /* TransformOperators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformOperators.swift; sourceTree = "<group>"; };
+		A0FD054724ED7A2500E265A9 /* ThrottleAndDebounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrottleAndDebounce.swift; sourceTree = "<group>"; };
+		A0FD054924ED7DE000E265A9 /* CombineLatestAndWithLatestFrom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineLatestAndWithLatestFrom.swift; sourceTree = "<group>"; };
+		A0FD054B24ED851E00E265A9 /* SubscribeOnAndObserveOn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeOnAndObserveOn.swift; sourceTree = "<group>"; };
+		A0FD054D24ED970A00E265A9 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
+		A0FD054F24EDA18F00E265A9 /* MultipleSubscribers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSubscribers.swift; sourceTree = "<group>"; };
 		B695FCCB73F38FB73C150900 /* Pods_rxswiftdemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rxswiftdemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C031178715B6C81EC6CF747C /* Pods-rxswiftdemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rxswiftdemo.release.xcconfig"; path = "Target Support Files/Pods-rxswiftdemo/Pods-rxswiftdemo.release.xcconfig"; sourceTree = "<group>"; };
 		D3C48328ADBCE7852036A0AB /* Pods-rxswiftdemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rxswiftdemoTests.release.xcconfig"; path = "Target Support Files/Pods-rxswiftdemoTests/Pods-rxswiftdemoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -184,6 +194,11 @@
 			children = (
 				A06E8AD524ED0CD4000892D7 /* CreateObservable.swift */,
 				A06E8ADC24ED42F5000892D7 /* TransformOperators.swift */,
+				A0FD054724ED7A2500E265A9 /* ThrottleAndDebounce.swift */,
+				A0FD054924ED7DE000E265A9 /* CombineLatestAndWithLatestFrom.swift */,
+				A0FD054B24ED851E00E265A9 /* SubscribeOnAndObserveOn.swift */,
+				A0FD054D24ED970A00E265A9 /* ErrorHandling.swift */,
+				A0FD054F24EDA18F00E265A9 /* MultipleSubscribers.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -435,13 +450,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0FD054A24ED7DE000E265A9 /* CombineLatestAndWithLatestFrom.swift in Sources */,
 				A06E8AD324ED0796000892D7 /* ExampleCell.swift in Sources */,
 				A06E8AA724ED05BC000892D7 /* ViewController.swift in Sources */,
+				A0FD054824ED7A2500E265A9 /* ThrottleAndDebounce.swift in Sources */,
 				A06E8AD624ED0CD4000892D7 /* CreateObservable.swift in Sources */,
 				A06E8ADD24ED42F5000892D7 /* TransformOperators.swift in Sources */,
+				A0FD054E24ED970A00E265A9 /* ErrorHandling.swift in Sources */,
 				A06E8AD924ED0EBB000892D7 /*  NetworkService.swift in Sources */,
 				A06E8AA324ED05BC000892D7 /* AppDelegate.swift in Sources */,
 				A06E8AA524ED05BC000892D7 /* SceneDelegate.swift in Sources */,
+				A0FD054C24ED851E00E265A9 /* SubscribeOnAndObserveOn.swift in Sources */,
+				A0FD055024EDA18F00E265A9 /* MultipleSubscribers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
